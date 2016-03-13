@@ -3,6 +3,8 @@ package com.example.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+
 @Document(collection = "students")
 public class Student {
 
@@ -12,6 +14,15 @@ public class Student {
     String name;
     String password;
     String rollno;
+    ArrayList<Course> courses = new ArrayList<Course>();
+
+    public ArrayList<Course> getCourses() {
+        return courses;
+    }
+
+    public void addCourse(Course course){
+        this.courses.add(course);
+    }
 
     public String getPassword() {
         return password;
@@ -45,12 +56,6 @@ public class Student {
         return rollno;
     }
 
-    public Student(String name, String password, String rollno) {
-        this.name = name;
-        this.password = password;
-        this.rollno = rollno;
-    }
-
     @Override
     public String toString() {
         return "Student{" +
@@ -58,6 +63,14 @@ public class Student {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", rollno='" + rollno + '\'' +
+                ", courses=" + courses +
                 '}';
     }
+
+    public Student(String name, String password, String rollno) {
+        this.name = name;
+        this.password = password;
+        this.rollno = rollno;
+    }
+
 }

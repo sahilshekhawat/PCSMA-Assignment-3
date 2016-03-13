@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.model.Student;
+import com.example.model.Teacher;
 import com.example.repository.StudentRepository;
 import com.example.repository.TeacherRepository;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
@@ -23,10 +24,10 @@ import java.io.PrintWriter;
 public class LoginController {
 
     @Autowired
-    StudentRepository studentRepository;
+    private StudentRepository studentRepository;
 
     @Autowired
-    TeacherRepository teacherRepository;
+    private TeacherRepository teacherRepository;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String teacherLogin(){
@@ -36,11 +37,17 @@ public class LoginController {
     @RequestMapping(value="/api/studentlogin", method = RequestMethod.POST)
     public @ResponseBody void studentLogin(HttpServletRequest request,
                                            HttpServletResponse response){
-
-
         String name =  request.getParameter("name");
         String password =  request.getParameter("password");
-        Student student = studentRepository.findByName(name);
+        String type = request.getParameter("type");
+        String userpassword;
+        if(type.equals("student")){
+            Student student = studentRepository.findByName(name);
+            userpassword = student.getPassword();
+        } else{
+            Teacher teacher = teacherRepository.findByName(name);
+            userpassword = teacher.getPassword();
+        }
 
         System.out.println(name);
         System.out.println(password);
@@ -55,12 +62,11 @@ public class LoginController {
                 e.printStackTrace();
             }
         } else {
-
-
-            if (student.getPassword().equals(password)) {
+            if (userpassword.equals(password)) {
                 //logged In
                 HttpSession session = request.getSession();
                 session.setAttribute("name", name);
+                session.setAttribute("type", type);
                 System.out.println("Success!!");
 
                 response.setStatus(200);
@@ -88,60 +94,4 @@ public class LoginController {
             }
         }
     }
-
-//
-//    @RequestMapping(value="/api/teacherlogin", method = RequestMethod.POST)
-//    public @ResponseBody void teacherLogin(HttpServletRequest request,
-//                                           HttpServletResponse response){
-//
-//
-//        String name =  request.getParameter("name");
-//        String password =  request.getParameter("password");
-//        Student student = studentRepository.findByName(name);
-//
-//        System.out.println(name);
-//        System.out.println(password);
-//        if(request.getSession().getAttribute("name") != null){
-//            System.out.println("Already Logged In!");
-//            response.setHeader("message", "loggedin");
-//            response.setContentType("application/json");
-//            try {
-//                PrintWriter out = response.getWriter();
-//                out.println("{ \"message\": \"loggedin\" }");
-//            } catch (IOException e){
-//                e.printStackTrace();
-//            }
-//        }
-//
-//
-//        if(student.getPassword().equals(password)){
-//            //logged In
-//            HttpSession session = request.getSession();
-//            session.setAttribute("name", name);
-//            System.out.println("Success!!");
-//
-//            response.setStatus(200);
-//            response.setHeader("message", "success");
-//            response.setContentType("application/json");
-//            try {
-//                PrintWriter out = response.getWriter();
-//                out.println("{ \"message\": \"success\" }");
-//            } catch (IOException e){
-//                e.printStackTrace();
-//            }
-//
-//        } else{
-//            // Failed
-//            System.out.println("Failed!!");
-//            response.setHeader("message", "failed");
-//            response.setContentType("application/json");
-//            try {
-//                PrintWriter out = response.getWriter();
-//                out.println("{ \"message\": \"failed\" }");
-//            } catch (IOException e){
-//                e.printStackTrace();
-//
-//            }
-//        }
-//    }
 }

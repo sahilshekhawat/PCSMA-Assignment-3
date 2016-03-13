@@ -5,9 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 
-/**
- * Created by sahil on 3/11/16.
- */
 @Document(collection = "teachers")
 public class Teacher {
 
@@ -15,6 +12,24 @@ public class Teacher {
     private String id;
 
     String name;
+    String password;
+    ArrayList<Course> courses = new ArrayList<Course>();
+
+    public ArrayList<Course> getCourses() {
+        return courses;
+    }
+
+    public void addCourse(Course course){
+        this.courses.add(course);
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getId() {
         return id;
@@ -32,9 +47,9 @@ public class Teacher {
         this.name = name;
     }
 
-    public Teacher(String id, String name) {
-        this.id = id;
+    public Teacher(String name, String password) {
         this.name = name;
+        this.password = password;
     }
 
     @Override
@@ -42,6 +57,8 @@ public class Teacher {
         return "Teacher{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", courses=" + courses +
                 '}';
     }
 }
