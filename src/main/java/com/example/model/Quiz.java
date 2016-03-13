@@ -14,7 +14,7 @@ public class Quiz {
     String name;
     String question;
     String time;
-    ArrayList<String> options;
+    ArrayList<Option> options = new ArrayList<>();
 
     public String getTime() {
         return time;
@@ -48,11 +48,11 @@ public class Quiz {
         this.question = question;
     }
 
-    public ArrayList<String> getOptions() {
+    public ArrayList<Option> getOptions() {
         return options;
     }
 
-    public void addOptions(String options) {
+    public void addOptions(Option options) {
         this.options.add(options);
     }
 
