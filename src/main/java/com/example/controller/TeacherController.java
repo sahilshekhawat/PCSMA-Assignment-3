@@ -1,7 +1,9 @@
 package com.example.controller;
 
+import com.example.model.Course;
 import com.example.model.Student;
 import com.example.model.Teacher;
+import com.example.repository.CourseRepository;
 import com.example.repository.StudentRepository;
 import com.example.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class TeacherController {
     @Autowired
     private TeacherRepository teacherRepository;
 
+    @Autowired
+    private CourseRepository courseRepository;
+
     @RequestMapping(value="/api/teacher/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Teacher> getTeacher(@PathVariable("name") String name){
         return new ResponseEntity<Teacher>(teacherRepository.findByName(name), HttpStatus.OK);
@@ -48,6 +53,27 @@ public class TeacherController {
         try {
             PrintWriter out = response.getWriter();
             out.println("{ \"message\": \"created teacher\" }");
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping(value="/api/teacher/addcourse", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody void addcourse(HttpServletRequest request,
+                                        HttpServletResponse response){
+        String user_name = (String) request.getSession().getAttribute("name");
+        Teacher teacher = teacherRepository.findByName(user_name);
+
+        String course_name =  request.getParameter("name");
+        Course course = courseRepository.findByName(course_name);
+
+        teacher.addCourse(course);
+        response.setStatus(200);
+        response.setHeader("message", "success");
+        response.setContentType("application/json");
+        try {
+            PrintWriter out = response.getWriter();
+            out.println("{ \"message\": \"added course\" }");
         } catch (IOException e){
             e.printStackTrace();
         }
