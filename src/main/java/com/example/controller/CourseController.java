@@ -24,13 +24,13 @@ public class CourseController {
     @Autowired
     private CourseRepository courseRepository;
 
-    @RequestMapping(value="/course/{id}", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/api/course/{name}", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Course> getCourse(@PathVariable("name") String name){
         return new ResponseEntity<Course>(courseRepository.findByName(name), HttpStatus.OK);
     }
 
     @RequestMapping(value="/api/course", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody void createStudent(HttpServletRequest request,
+    public @ResponseBody void createCourse(HttpServletRequest request,
                                             HttpServletResponse response){
         String name =  request.getParameter("name");
         String code = request.getParameter("code");
@@ -42,7 +42,7 @@ public class CourseController {
         response.setContentType("application/json");
         try {
             PrintWriter out = response.getWriter();
-            out.println("{ \"message\": \"created\" }");
+            out.println("{ \"message\": \"created course\" }");
         } catch (IOException e){
             e.printStackTrace();
         }

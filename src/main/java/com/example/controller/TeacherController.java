@@ -47,7 +47,7 @@ public class TeacherController {
         response.setContentType("application/json");
         try {
             PrintWriter out = response.getWriter();
-            out.println("{ \"message\": \"created\" }");
+            out.println("{ \"message\": \"created teacher\" }");
         } catch (IOException e){
             e.printStackTrace();
         }

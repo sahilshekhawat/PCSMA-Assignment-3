@@ -6,12 +6,31 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 
 
-@Document(collection = "quizes")
+@Document(collection = "quizs")
 public class Quiz {
     @Id
     private String id;
+
+    String name;
     String question;
+    String time;
     ArrayList<String> options;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getId() {
         return id;
@@ -41,12 +60,15 @@ public class Quiz {
     public String toString() {
         return "Quiz{" +
                 "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", question='" + question + '\'' +
                 ", options=" + options +
                 '}';
     }
 
-    public Quiz(String question) {
+    public Quiz(String name, String question, String time) {
+        this.name = name;
         this.question = question;
+        this.time = time;
     }
 }

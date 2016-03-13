@@ -34,9 +34,9 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value="/api/studentlogin", method = RequestMethod.POST)
-    public @ResponseBody void studentLogin(HttpServletRequest request,
-                                           HttpServletResponse response){
+    @RequestMapping(value="/api/login", method = RequestMethod.POST)
+    public @ResponseBody void userLogin(HttpServletRequest request,
+                                        HttpServletResponse response){
         String name =  request.getParameter("name");
         String password =  request.getParameter("password");
         String type = request.getParameter("type");
@@ -57,7 +57,7 @@ public class LoginController {
             response.setContentType("application/json");
             try {
                 PrintWriter out = response.getWriter();
-                out.println("{ \"message\": \"loggedin\" }");
+                out.println("{ \"message\": \"already loggedin\" }");
             } catch (IOException e){
                 e.printStackTrace();
             }
@@ -93,5 +93,21 @@ public class LoginController {
                 }
             }
         }
+    }
+
+    @RequestMapping(value="/api/logout", method=RequestMethod.GET)
+    public void userLogout(HttpServletRequest request,
+                           HttpServletResponse response){
+        HttpSession session = request.getSession();
+        session.removeAttribute("name");
+        response.setHeader("message", "loggedin");
+        response.setContentType("application/json");
+        try {
+            PrintWriter out = response.getWriter();
+            out.println("{ \"message\": \"logged out\" }");
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 }
