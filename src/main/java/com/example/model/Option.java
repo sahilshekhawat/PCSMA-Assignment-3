@@ -1,5 +1,7 @@
 package com.example.model;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.HashMap;
 
 /**
@@ -8,13 +10,23 @@ import java.util.HashMap;
 public class Option {
 
     String value;
-    HashMap<Student, Boolean> votes = new HashMap<>();
 
-    public HashMap<Student, Boolean> getVotes() {
+    public Boolean getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Boolean answer) {
+        this.answer = answer;
+    }
+
+    Boolean answer = false;
+    HashMap<String, Boolean> votes = new HashMap<>();
+
+    public HashMap<String, Boolean> getVotes() {
         return votes;
     }
 
-    public void addVote(Student student, Boolean anonymous) {
+    public void addVote(String student, Boolean anonymous) {
         this.votes.put(student, anonymous);
     }
 
