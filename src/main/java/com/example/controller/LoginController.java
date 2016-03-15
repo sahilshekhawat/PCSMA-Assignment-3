@@ -34,6 +34,16 @@ public class LoginController {
         return "login";
     }
 
+    @RequestMapping(value = "/course", method = RequestMethod.GET)
+    public String getCoursesHtml(){
+        return "course";
+    }
+
+    @RequestMapping(value = "/quiz", method = RequestMethod.GET)
+    public String getQuizHtml(){
+        return "quiz";
+    }
+
     @RequestMapping(value="/api/login", method = RequestMethod.POST)
     public @ResponseBody void userLogin(HttpServletRequest request,
                                         HttpServletResponse response){

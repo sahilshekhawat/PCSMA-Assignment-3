@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+
+    <style>
+        body {
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #eee;
+        }
+
+    </style>
+</head>
+<body>
+<div class="jumbotron" style="background-color: #2962FF; color: white; margin-bottom: 0px; padding-bottom: 2%;">
+    <div class="row">
+        <div class="col-md-12 col-xs-12" style="text-align: center; margin-top: 3%;">
+            <h2>Welcome to Quizzer</h2>
+            <p>Add or view your Quizes here.</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3" style="margin-top: 50px; margin-left: 30px;">
+        <div class="panel panel-default" id="newquiz" style="padding: 10px; background-color: #F5F5F5;">
+            <div class="panel-body">
+                <form role="form" id="createnewquiz">
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>QUIZ NAME</label>
+                        <input class="form-control" id="quizname" style="height: 40px;">
+                    </div>
+                    <div class="form-group">
+                        <label>QUIZ TIME</label>
+                        <input class="form-control" id="quiztime" style="height: 40px;">
+                    </div>
+                    <div class="form-group">
+                        <label>QUIZ QUES</label>
+                        <input class="form-control" id="quizques" style="height: 40px;">
+                    </div>
+                    <button class="btn btn-primary btn-block" style="margin-top: 50px; height: 40px; background-color: #2962FF; color: white;">CREATE NEW QUIZ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--<% apps.forEach(function(app) { %>-->
+    <!--<div class="col-sm-2" style="margin-top: 50px; margin-left: 30px;">-->
+    <!--<div class="panel panel-default" id=<%= app.name %> style="padding: 10px; background-color: #F5F5F5; height: 306.111px;">-->
+    <!--<div class="panel-body">-->
+    <!--<div style="margin-top: 20px; text-align: center;">-->
+    <!--<h1 ><%= app.name %></h2>-->
+    <!--<br>-->
+    <!--<h4><%= app.url %></h4>-->
+    <!--</div>-->
+    <!--<button onClick="window.location.href='/app?id=' + <%= app.id %>" class="btn btn-primary btn-block" style="margin-top: 97px; height: 40px; background-color: #2962FF; color: white;">Manage Course</button>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<% }); %>-->
+
+    <!--<table>-->
+    <!--<tr>-->
+    <!--<td width="100">Name</td>-->
+    <!--</tr>-->
+    <!--<c:forEach items="${course}" var="course">-->
+    <!--<tr>-->
+    <!--<td><c:out value="${course.name}" /></td>-->
+    <!--</tr>-->
+    <!--</c:forEach>-->
+    <!--</table>-->
+
+    <script   src="https://code.jquery.com/jquery-2.2.1.min.js"   integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="   crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <script>
+        $("#createnewquiz").submit(function(e){
+            e.preventDefault();
+            var name = $("#quizname").val();
+            var time = $("#quiztime").val();
+            var ques = $("#quizques").val();
+            $.ajax({
+                method: "POST",
+                url: "/api/quiz",
+                data: {
+                    name: name,
+                    quesetion: ques,
+                    time: time
+                }
+            }).done(function(msg){
+                console.log(msg);
+
+            });
+            console.log("Finished");
+//            window.location.reload(true);
+        })
+    </script>
+
+</body>
+</html>

@@ -58,10 +58,11 @@
 <div class="container">
     <div class="row" style="margin-top: 200px;">
         <div class="col-sm-4 col-sm-offset-4">
-            <form class="form-signin" action="/api/login" method="post">
+            <form class="form-signin" action="/api/login" method="post" id="loginform">
                 <h2 class="form-signin-heading" style="text-align: center;">Teacher Sign in</h2>
                 <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" id="inputEmail" name="name" class="form-control" placeholder="Name" required="" autofocus="">
+                <input id="inputEmail" name="name" class="form-control" placeholder="Name" required="" autofocus="">
+                <input type="hidden" name="type" value="teacher" id="type">
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required="">
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
@@ -69,9 +70,44 @@
         </div>
     </div>
 </div>
+
+
 <script   src="https://code.jquery.com/jquery-2.2.1.min.js"   integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="   crossorigin="anonymous"></script>
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<script>
+    $("#loginform").submit( function( event ){
+        event.preventDefault();
+        var email = $("#inputEmail").val();
+        var pwd = $("#inputPassword").val();
+        var type = $("#type").val();
+        //var posting = $.post( url, { s: term } );
+
+        var url = "/api/login";
+        console.log();
+        //posting
+        $.ajax({
+            method: "POST",
+            url: "/api/login",
+            data: {name: email, password: pwd, type: type},
+        }).done(function(msg){
+            console.log(msg);
+            console.log("Redirecting");
+            window.location.href="/course";
+        });
+        // $.post(url, {identifier: email, password: pwd}, function(data, status){
+        // 	console.log(status);
+        // 	console.log(data);
+        //    });
+        // // Put the results in a div
+        // posting.done(function( data ) {
+        // 	var content = $( data ).find( "#content" );
+        //     $( "#result" ).empty().append( content );
+        // });
+    });
+</script>
+
 </body>
 </html>
