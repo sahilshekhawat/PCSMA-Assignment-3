@@ -2,7 +2,9 @@ package com.example;
 
 import com.example.config.SpringMongoConfig;
 import com.example.model.Student;
+import com.example.model.Teacher;
 import com.example.repository.StudentRepository;
+import com.example.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.boot.SpringApplication;
@@ -23,6 +25,9 @@ public class PcsmaAssignment3Application implements CommandLineRunner{
 	@Autowired
 	private StudentRepository studentRepository;
 
+	@Autowired
+	private TeacherRepository teacherRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(PcsmaAssignment3Application.class, args);
 	}
@@ -31,7 +36,7 @@ public class PcsmaAssignment3Application implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		studentRepository.deleteAll();
 		studentRepository.save(new Student("sahil", "sahil", "2013083"));
-		studentRepository.save(new Student("varsha", "varsha", "007"));
+		teacherRepository.save(new Teacher("varsha", "varsha"));
 
 		for(Student student: studentRepository.findAll()){
 			System.out.println(student);

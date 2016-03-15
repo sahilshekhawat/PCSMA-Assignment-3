@@ -64,6 +64,9 @@ public class CourseController {
         Course course = courseRepository.findByName(course_name);
 
         course.addQuiz(quiz);
+        courseRepository.save(course);
+
+
         response.setStatus(200);
         response.setHeader("message", "success");
         response.setContentType("application/json");

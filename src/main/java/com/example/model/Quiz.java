@@ -14,6 +14,16 @@ public class Quiz {
     String name;
     String question;
     String time;
+    String startingTime;
+
+    public String getStartingTime() {
+        return startingTime;
+    }
+
+    public void setStartingTime(String startingTime) {
+        this.startingTime = startingTime;
+    }
+
     ArrayList<Option> options = new ArrayList<>();
 
     public String getTime() {
@@ -62,13 +72,16 @@ public class Quiz {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", question='" + question + '\'' +
+                ", time='" + time + '\'' +
+                ", startingTime='" + startingTime + '\'' +
                 ", options=" + options +
                 '}';
     }
 
-    public Quiz(String name, String question, String time) {
+    public Quiz(String name, String question, String time, String startingTime) {
         this.name = name;
         this.question = question;
         this.time = time;
+        this.startingTime = startingTime;
     }
 }

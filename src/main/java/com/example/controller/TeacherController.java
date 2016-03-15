@@ -66,8 +66,10 @@ public class TeacherController {
 
         String course_name =  request.getParameter("name");
         Course course = courseRepository.findByName(course_name);
-
+        System.out.println(user_name);
         teacher.addCourse(course);
+        teacherRepository.save(teacher);
+
         response.setStatus(200);
         response.setHeader("message", "success");
         response.setContentType("application/json");

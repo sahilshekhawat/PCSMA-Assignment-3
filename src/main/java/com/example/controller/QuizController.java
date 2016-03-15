@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 @Controller
@@ -44,8 +46,11 @@ public class QuizController {
         String name =  request.getParameter("name");
         String question = request.getParameter("question");
         String time = request.getParameter("time");
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss a");
+        String startingTime = sdf.format(date);
 
-        quizRepository.save(new Quiz(name, question, time));
+        quizRepository.save(new Quiz(name, question, time, startingTime));
 
         response.setStatus(200);
         response.setHeader("message", "success");
@@ -60,12 +65,21 @@ public class QuizController {
 
     @RequestMapping(value="/api/quiz/{name}/addoption",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody void addOption(HttpServletRequest request,
-                                        HttpServletResponse response){
+                                        HttpServletResponse response,
+                                        @PathVariable("name") String quiz_name){
         String value = request.getParameter("value");
-        String quiz_name = (String) request.getAttribute("name");
-
+        System.out.println(quiz_name);
         Quiz quiz = quizRepository.findByName(quiz_name);
-        quiz.addOptions(new Option(value));
+
+        Option option = new Option(value);
+        if(request.getParameter("answer") != null){
+            if(request.getParameter("answer").equals("true")){
+                option.setAnswer(true);
+            }
+        }
+
+        quiz.addOptions(option);
+        quizRepository.save(quiz);
 
         response.setStatus(200);
         response.setHeader("message", "success");
@@ -80,12 +94,13 @@ public class QuizController {
 
     @RequestMapping(value="/api/quiz/{name}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody void vote(HttpServletRequest request,
-                                   HttpServletResponse response){
+                                   HttpServletResponse response,
+                                   @PathVariable("name") String quiz_name){
+
         HttpSession session = request.getSession();
         String user_name = (String) session.getAttribute("name");
 
-        Student student = studentRepository.findByName(user_name);
-        String quiz_name = (String) request.getAttribute("name");
+//        Student student = studentRepository.findByName(user_name);
         String anonymous = request.getParameter("anonymous");
         String value = request.getParameter("value");
 
@@ -98,10 +113,13 @@ public class QuizController {
         Quiz quiz = quizRepository.findByName(quiz_name);
         for(Option option: quiz.getOptions()){
             if(option.getValue().equals(value)){
-                option.addVote(student, bool_anonymous);
+                option.addVote(user_name, bool_anonymous);
                 break;
             }
         }
+
+        quizRepository.save(quiz);
+
         response.setStatus(200);
         response.setHeader("message", "success");
         response.setContentType("application/json");
