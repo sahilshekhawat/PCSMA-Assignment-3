@@ -55,6 +55,7 @@ public class QuizController {
         response.setStatus(200);
         response.setHeader("message", "success");
         response.setContentType("application/json");
+
         try {
             PrintWriter out = response.getWriter();
             out.println("{ \"message\": \"created quiz\" }");
@@ -67,6 +68,7 @@ public class QuizController {
     public @ResponseBody void addOption(HttpServletRequest request,
                                         HttpServletResponse response,
                                         @PathVariable("name") String quiz_name){
+
         String value = request.getParameter("value");
         System.out.println(quiz_name);
         Quiz quiz = quizRepository.findByName(quiz_name);
@@ -97,12 +99,18 @@ public class QuizController {
                                    HttpServletResponse response,
                                    @PathVariable("name") String quiz_name){
 
-        HttpSession session = request.getSession();
-        String user_name = (String) session.getAttribute("name");
+//        HttpSession session = request.getSession();
+        String user_name = request.getParameter("name");
 
 //        Student student = studentRepository.findByName(user_name);
         String anonymous = request.getParameter("anonymous");
         String value = request.getParameter("value");
+
+        System.out.println("vote request start");
+        System.out.println(anonymous);
+        System.out.println(value);
+        System.out.println(user_name);
+        System.out.println("vote request end");
 
         Boolean bool_anonymous;
         if(anonymous.equals("true")){
