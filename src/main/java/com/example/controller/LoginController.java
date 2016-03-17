@@ -34,12 +34,17 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value = "/course", method = RequestMethod.GET)
-    public String getCoursesHtml(){
+    @RequestMapping(value = "/profile/{name}", method = RequestMethod.GET)
+    public String getProfileHtml(){
+        return "profile";
+    }
+
+    @RequestMapping(value = "/course/{name}", method = RequestMethod.GET)
+    public String getCourseHtml(){
         return "course";
     }
 
-    @RequestMapping(value = "/quiz", method = RequestMethod.GET)
+    @RequestMapping(value = "/quiz/{name}", method = RequestMethod.GET)
     public String getQuizHtml(){
         return "quiz";
     }

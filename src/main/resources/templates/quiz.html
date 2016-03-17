@@ -25,86 +25,111 @@
     <div class="row">
         <div class="col-md-12 col-xs-12" style="text-align: center; margin-top: 3%;">
             <h2>Welcome to Quizzer</h2>
-            <p>Add or view your Quizes here.</p>
+            <p>Add or view your Quiz Options here.</p>
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-3" style="margin-top: 50px; margin-left: 30px;">
-        <div class="panel panel-default" id="newquiz" style="padding: 10px; background-color: #F5F5F5;">
+        <div class="panel panel-default" id="newquizoption" style="padding: 10px; background-color: #F5F5F5;">
             <div class="panel-body">
-                <form role="form" id="createnewquiz">
+                <form role="form" id="createnewoption">
                     <div class="form-group" style="margin-top: 20px;">
-                        <label>QUIZ NAME</label>
-                        <input class="form-control" id="quizname" style="height: 40px;">
+                        <label>QUIZ OPTION</label>
+                        <input class="form-control" id="quizoption" style="height: 40px;">
                     </div>
-                    <div class="form-group">
-                        <label>QUIZ TIME</label>
-                        <input class="form-control" id="quiztime" style="height: 40px;">
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>QUIZ BOOL</label>
+                        <input class="form-control" id="quizbool" style="height: 40px;">
                     </div>
-                    <div class="form-group">
-                        <label>QUIZ QUES</label>
-                        <input class="form-control" id="quizques" style="height: 40px;">
-                    </div>
-                    <button class="btn btn-primary btn-block" style="margin-top: 50px; height: 40px; background-color: #2962FF; color: white;">CREATE NEW QUIZ</button>
+                    <button class="btn btn-primary btn-block" style="margin-top: 50px; height: 40px; background-color: #2962FF; color: white;">CREATE NEW OPTION</button>
                 </form>
             </div>
         </div>
+        <!--<div class="panel panel-default" id="newquizanalyse" style="padding: 10px; background-color: #F5F5F5;">-->
+            <!--<div class="panel-body">-->
+                <!--<form role="form" id="analyse">-->
+                    <!--<button class="btn btn-primary btn-block" style="height: 40px; background-color: #2962FF; color: white;">ANALYSE</button>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
-    <!--<% apps.forEach(function(app) { %>-->
-    <!--<div class="col-sm-2" style="margin-top: 50px; margin-left: 30px;">-->
-    <!--<div class="panel panel-default" id=<%= app.name %> style="padding: 10px; background-color: #F5F5F5; height: 306.111px;">-->
-    <!--<div class="panel-body">-->
-    <!--<div style="margin-top: 20px; text-align: center;">-->
-    <!--<h1 ><%= app.name %></h2>-->
-    <!--<br>-->
-    <!--<h4><%= app.url %></h4>-->
-    <!--</div>-->
-    <!--<button onClick="window.location.href='/app?id=' + <%= app.id %>" class="btn btn-primary btn-block" style="margin-top: 97px; height: 40px; background-color: #2962FF; color: white;">Manage Course</button>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<% }); %>-->
+    <div class="col-sm-8">
+        <table id="table" class="table table-responsive table-hover">
+            <thead>
+            <tr>
+                <th>QuizOptions</th>
+                <th>True/False</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
 
-    <!--<table>-->
-    <!--<tr>-->
-    <!--<td width="100">Name</td>-->
-    <!--</tr>-->
-    <!--<c:forEach items="${course}" var="course">-->
-    <!--<tr>-->
-    <!--<td><c:out value="${course.name}" /></td>-->
-    <!--</tr>-->
-    <!--</c:forEach>-->
-    <!--</table>-->
+<script   src="https://code.jquery.com/jquery-2.2.1.min.js"   integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="   crossorigin="anonymous"></script>
 
-    <script   src="https://code.jquery.com/jquery-2.2.1.min.js"   integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="   crossorigin="anonymous"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-    <script>
-        $("#createnewquiz").submit(function(e){
-            e.preventDefault();
-            var name = $("#quizname").val();
-            var time = $("#quiztime").val();
-            var ques = $("#quizques").val();
-            $.ajax({
-                method: "POST",
-                url: "/api/quiz",
-                data: {
-                    name: name,
-                    quesetion: ques,
-                    time: time
+<script>
+    $("#createnewoption").submit(function(e){
+        e.preventDefault();
+        var option = $("#quizoption").val();
+        var bool = $("#quizbool").val();
+        var url = window.location.href;
+        console.log(url);
+        url= url.split("/");
+        var tm= url[url.length -1];
+        $.ajax({
+            method: "POST",
+            url: "/api/quiz/"+tm+"/addoption",
+            data: {
+                value: option,
+                answer: bool
+            }
+        }).done(function(msg){
+            console.log(msg);
+            window.location.reload(true);
+        });
+        console.log("Finished");
+    })
+</script>
+
+<script>
+    var name,id;
+    var url = window.location.href;
+    console.log(url);
+    url= url.split("/");
+    url= url[url.length -1];
+    console.log(url);
+    $.ajax({
+        method: "GET",
+        url: "/api/quiz/" + url
+    }).done(function(data){
+        console.log(data);
+        if(data){
+            var len = data.options.length;
+            var txt = "";
+            console.log(len);
+            if(len > 0){
+                for(var i=0;i<len;i++){
+                    console.log(data.options[i].value);
+                    if(data.options[i].value){
+//                        var tm = "/quiz/"+data.options[i].value;
+                        txt += "<tr><td>"+data.options[i].value+"</td><td>"+data.options[i].answer+"</td></tr>";
+                    }
                 }
-            }).done(function(msg){
-                console.log(msg);
+                if(txt != ""){
+                    $("#table").append(txt);
+                }
+            }
+        }
+    });
+    console.log("Finished");
+</script>
 
-            });
-            console.log("Finished");
-//            window.location.reload(true);
-        })
-    </script>
 
 </body>
 </html>

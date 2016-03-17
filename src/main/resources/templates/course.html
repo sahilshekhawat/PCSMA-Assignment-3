@@ -25,38 +25,45 @@
     <div class="row">
         <div class="col-md-12 col-xs-12" style="text-align: center; margin-top: 3%;">
             <h2>Welcome to Quizzer</h2>
-            <p>Your have been successfully logged in!<br>
-                Add or view your course to get started.</p>
+            <p>Add or view your Quizes here.</p>
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-3" style="margin-top: 50px; margin-left: 30px;">
-        <div class="panel panel-default" id="newcourse" style="padding: 10px; background-color: #F5F5F5;">
+        <div class="panel panel-default" id="newquiz" style="padding: 10px; background-color: #F5F5F5;">
             <div class="panel-body">
-                <form role="form" id="createnewcourse">
+                <form role="form" id="createnewquiz">
                     <div class="form-group" style="margin-top: 20px;">
-                        <label>COURSE NAME</label>
-                        <input class="form-control" id="coursename" style="height: 40px;">
+                        <label>QUIZ NAME</label>
+                        <input class="form-control" id="quizname" style="height: 40px;">
                     </div>
                     <div class="form-group">
-                        <label>COURSE CODE</label>
-                        <input class="form-control" id="courseid" style="height: 40px;">
+                        <label>QUIZ TIME</label>
+                        <input class="form-control" id="quiztime" style="height: 40px;">
                     </div>
-                    <button class="btn btn-primary btn-block" style="margin-top: 50px; height: 40px; background-color: #2962FF; color: white;">CREATE NEW COURSE</button>
+                    <div class="form-group">
+                        <label>QUIZ QUES</label>
+                        <input class="form-control" id="quizques" style="height: 40px;">
+                    </div>
+                    <button class="btn btn-primary btn-block" style="margin-top: 50px; height: 40px; background-color: #2962FF; color: white;">CREATE NEW QUIZ</button>
                 </form>
             </div>
         </div>
     </div>
-
-    <!--<table>-->
-    <!--<c:forEach items="${course}" var="crs">-->
-    <!--<tr>-->
-    <!--<td><c:out value="${crs.id}" /></td>-->
-    <!--</tr>-->
-    <!--</c:forEach>-->
-    <!--</table>-->
+    <div class="col-sm-8">
+        <table id="table" class="table table-responsive table-hover">
+            <thead>
+            <tr>
+                <th>QuizName</th>
+                <th>QuizQues</th>
+                <th>QuizTime</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
 
     <script   src="https://code.jquery.com/jquery-2.2.1.min.js"   integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="   crossorigin="anonymous"></script>
 
@@ -64,78 +71,73 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
     <script>
-        $("#createnewcourse").submit(function(e){
+        $("#createnewquiz").submit(function(e){
             e.preventDefault();
-            var name = $("#coursename").val();
-            var id = $("#courseid").val();
+            var name = $("#quizname").val();
+            var time = $("#quiztime").val();
+            var ques = $("#quizques").val();
+            var url = window.location.href;
+            console.log(url);
+            url= url.split("/");
+            var tm= url[url.length -1];
             $.ajax({
                 method: "POST",
-                url: "/api/course",
+                url: "/api/quiz",
                 data: {
                     name: name,
-                    code: id
+                    question: ques,
+                    time: time
                 }
             }).done(function(msg){
                 console.log(msg);
-                console.log("Finished");
                 $.ajax({
                     method: "POST",
-                    url: "/api/teacher/addcourse",
+                    url: "/api/course/"+tm+"/addquiz",
                     data: {
-                        name: name,
+                        name: name
                     }
                 }).done(function(msg){
                     console.log(msg);
-                    console.log("Finished adding teacher");
-//            window.location.reload(true);
+                    console.log("Finished adding quiz");
+                    window.location.reload(true);
                 });
-//            window.location.reload(true);
             });
+            console.log("Finished");
         })
     </script>
 
     <script>
         var name,id;
+        var url = window.location.href;
+        console.log(url);
+        url= url.split("/");
+        url= url[url.length -1];
+        console.log(url);
         $.ajax({
             method: "GET",
-            url: "/api/teacher",
-            data: {
-                name: name,
-                password: id
-            }
-        }).done(function(msg){
-            console.log(msg);
-//        jQuery.each(msg, function() {
-//            $("#" + this).text("My id is " + this + ".");
-//            return (this != "four"); // will stop running to skip "five"
-//        });
-            var i = 0
-            document.writeln("<br><br><div align='center'><table border='1'><tr>");
-
-            for ( var i = 0; i < msg.courses.length; i++) {
-                var obj = graph.sparkData[i];
-                console.log(obj);
-                var crunchifyName;
-                var crunchifyValue;
-
-                document.writeln("<td>");
-                document.writeln("<table border='0'  width=100 >");
-
-                for ( var key in obj) {
-                    crunchifyName = key;
-                    crunchifyValue = obj[key].toString();
-                    +document.writeln("<tr><td><B>" + crunchifyName
-                    + ":  </B></td><td width=50>" + crunchifyValue
-                    + "</td></tr>");
-                    document.writeln("</table>");
-                    document.writeln("</td>");
-
+            url: "/api/course/" + url
+        }).done(function(data){
+            console.log(data);
+            if(data){
+                var len = data.quizs.length;
+                var txt = "";
+                if(len > 0){
+                    for(var i=0;i<len;i++){
+                        if(data.quizs[i].name && data.quizs[i].time){
+                            var tm = "/quiz/"+data.quizs[i].name;
+                            console.log(tm);
+                            txt += "<tr><td> <a href=\""+tm+"\">"+data.quizs[i].name+"</a></td><td>"+data.quizs[i].question+"</td><td>"+data.quizs[i].time+"</td></tr>";
+                        }
+                    }
+                    if(txt != ""){
+                        $("#table").append(txt);
+                    }
                 }
             }
-            document.writeln("</tr></table></div>");
         });
         console.log("Finished");
     </script>
+
 
 </body>
 </html>

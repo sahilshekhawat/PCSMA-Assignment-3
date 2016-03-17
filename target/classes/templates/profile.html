@@ -25,29 +25,26 @@
     <div class="row">
         <div class="col-md-12 col-xs-12" style="text-align: center; margin-top: 3%;">
             <h2>Welcome to Quizzer</h2>
-            <p>Add or view your Quizes here.</p>
+            <p>Your have been successfully logged in!<br>
+                Add or view your course to get started.</p>
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-3" style="margin-top: 50px; margin-left: 30px;">
-        <div class="panel panel-default" id="newquiz" style="padding: 10px; background-color: #F5F5F5;">
+        <div class="panel panel-default" id="newcourse" style="padding: 10px; background-color: #F5F5F5;">
             <div class="panel-body">
-                <form role="form" id="createnewquiz">
+                <form role="form" id="createnewcourse">
                     <div class="form-group" style="margin-top: 20px;">
-                        <label>QUIZ NAME</label>
-                        <input class="form-control" id="quizname" style="height: 40px;">
+                        <label>COURSE NAME</label>
+                        <input class="form-control" id="coursename" style="height: 40px;">
                     </div>
                     <div class="form-group">
-                        <label>QUIZ TIME</label>
-                        <input class="form-control" id="quiztime" style="height: 40px;">
+                        <label>COURSE CODE</label>
+                        <input class="form-control" id="courseid" style="height: 40px;">
                     </div>
-                    <div class="form-group">
-                        <label>QUIZ QUES</label>
-                        <input class="form-control" id="quizques" style="height: 40px;">
-                    </div>
-                    <button class="btn btn-primary btn-block" style="margin-top: 50px; height: 40px; background-color: #2962FF; color: white;">CREATE NEW QUIZ</button>
+                    <button class="btn btn-primary btn-block" style="margin-top: 50px; height: 40px; background-color: #2962FF; color: white;">CREATE NEW COURSE</button>
                 </form>
             </div>
         </div>
@@ -55,11 +52,10 @@
     <div class="col-sm-8">
         <table id="table" class="table table-responsive table-hover">
             <thead>
-            <tr>
-                <th>QuizName</th>
-                <th>QuizQues</th>
-                <th>QuizTime</th>
-            </tr>
+                <tr>
+                    <th>CourseName</th>
+                    <th>CourseCode</th>
+                </tr>
             </thead>
         </table>
     </div>
@@ -71,38 +67,32 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
     <script>
-        $("#createnewquiz").submit(function(e){
+        $("#createnewcourse").submit(function(e){
             e.preventDefault();
-            var name = $("#quizname").val();
-            var time = $("#quiztime").val();
-            var ques = $("#quizques").val();
-            var url = window.location.href;
-            console.log(url);
-            url= url.split("/");
-            var tm= url[url.length -1];
+            var name = $("#coursename").val();
+            var id = $("#courseid").val();
             $.ajax({
                 method: "POST",
-                url: "/api/quiz",
+                url: "/api/course",
                 data: {
                     name: name,
-                    question: ques,
-                    time: time
+                    code: id
                 }
             }).done(function(msg){
                 console.log(msg);
+                console.log("Finished");
                 $.ajax({
                     method: "POST",
-                    url: "/api/course/"+tm+"/addquiz",
+                    url: "/api/teacher/addcourse",
                     data: {
-                        name: name
+                        name: name,
                     }
                 }).done(function(msg){
                     console.log(msg);
-                    console.log("Finished adding quiz");
+                    console.log("Finished adding teacher");
                     window.location.reload(true);
                 });
             });
-            console.log("Finished");
         })
     </script>
 
@@ -115,19 +105,20 @@
         console.log(url);
         $.ajax({
             method: "GET",
-            url: "/api/course/" + url
+            url: "/api/teacher/" + url
         }).done(function(data){
             console.log(data);
             if(data){
-                var len = data.quizs.length;
+                var len = data.courses.length;
                 var txt = "";
                 if(len > 0){
                     for(var i=0;i<len;i++){
-                        if(data.quizs[i].name && data.quizs[i].time){
-                            var tm = "/quiz/"+data.quizs[i].name;
+                        if(data.courses[i].name && data.courses[i].code){
+                            var tm = "/course/"+data.courses[i].name;
                             console.log(tm);
-                            txt += "<tr><td> <a href=\""+tm+"\">"+data.quizs[i].name+"</a></td><td>"+data.quizs[i].question+"</td><td>"+data.quizs[i].time+"</td></tr>";
+                            txt += "<tr><td> <a href=\""+tm+"\">"+data.courses[i].name+"</a></td><td>"+data.courses[i].code+"</td></tr>";
                         }
+
                     }
                     if(txt != ""){
                         $("#table").append(txt);
@@ -137,7 +128,6 @@
         });
         console.log("Finished");
     </script>
-
 
 </body>
 </html>
