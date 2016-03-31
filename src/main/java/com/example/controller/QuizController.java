@@ -66,6 +66,33 @@ public class QuizController {
         }
     }
 
+    @RequestMapping(value="/api/quiz/{name}/startquiz",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody void startQuiz(HttpServletRequest request,
+                                        HttpServletResponse response,
+                                        @PathVariable("name") String quiz_name){
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss a");
+        String startingTime = sdf.format(date);
+
+        Quiz quiz = quizRepository.findByName(quiz_name);
+
+        quiz.setStartingTime(startingTime);
+        quizRepository.save(quiz);
+
+
+        response.setStatus(200);
+        response.setHeader("message", "success");
+        response.setContentType("application/json");
+        try {
+            PrintWriter out = response.getWriter();
+            out.println("{ \"message\": \"started quiz\" }");
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
+
     @RequestMapping(value="/api/quiz/{name}/addoption",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody void addOption(HttpServletRequest request,
                                         HttpServletResponse response,

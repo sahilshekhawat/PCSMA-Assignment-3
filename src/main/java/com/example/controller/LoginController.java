@@ -49,6 +49,11 @@ public class LoginController {
         return "quiz";
     }
 
+    @RequestMapping(value = "/analyze/{name}", method = RequestMethod.GET)
+    public String getAnalyzeHtml(){
+        return "analyze";
+    }
+
     @RequestMapping(value="/api/login", method = RequestMethod.POST)
     public @ResponseBody void userLogin(HttpServletRequest request,
                                         HttpServletResponse response){
