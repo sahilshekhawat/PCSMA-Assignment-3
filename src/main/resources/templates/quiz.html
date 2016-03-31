@@ -12,19 +12,36 @@
 
 
     <style>
-        body {
-            padding-top: 40px;
-            padding-bottom: 40px;
-            background-color: #eee;
+        /*body {*/
+            /*padding-top: 40px;*/
+            /*padding-bottom: 40px;*/
+            /*background-color: #eee;*/
+        /*}*/
+        .bg {
+            background: url('https://lh5.googleusercontent.com/-MmzRSngVgXk/U_PTNYcu5xI/AAAAAAAAJPo/GxILVN7U6zI/w1406-h879-no/14%2B-%2B17') no-repeat center center;
+            position: fixed;
+            width: 100%;
+            background-size: cover;
+            height: 350px; /*same height as jumbotron */
+            top:0;
+            left:0;
+            z-index: -1;
         }
 
+        .jumbotron {
+            height: 350px;
+            color: white;
+            text-shadow: #444 0 1px 1px;
+            background:transparent;
+        }
     </style>
 </head>
 <body>
-<div class="jumbotron" style="background-color: #2962FF; color: white; margin-bottom: 0px; padding-bottom: 2%;">
+<div class="bg"></div>
+<div class="jumbotron">
     <div class="row">
         <div class="col-md-12 col-xs-12" style="text-align: center; margin-top: 3%;">
-            <h2>Welcome to Quizzer</h2>
+            <h2>Welcome to Quizzer!</h2>
             <p>Add or view your Quiz Options here.</p>
         </div>
     </div>
@@ -47,13 +64,20 @@
                 </form>
             </div>
         </div>
-        <!--<div class="panel panel-default" id="newquizanalyse" style="padding: 10px; background-color: #F5F5F5;">-->
-            <!--<div class="panel-body">-->
-                <!--<form role="form" id="analyse">-->
-                    <!--<button class="btn btn-primary btn-block" style="height: 40px; background-color: #2962FF; color: white;">ANALYSE</button>-->
-                <!--</form>-->
-            <!--</div>-->
-        <!--</div>-->
+        <div class="panel panel-default" id="newquizanalyze" style="padding: 10px; background-color: #F5F5F5;">
+            <div class="panel-body">
+                <form role="form" id="analyze">
+                    <button class="btn btn-primary btn-block" style="height: 40px; background-color: #2962FF; color: white;">ANALYSE</button>
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-default" id="newstarttime" style="padding: 10px; background-color: #F5F5F5;">
+            <div class="panel-body">
+                <form role="form" id="time">
+                    <button class="btn btn-primary btn-block" style="height: 40px; background-color: #2962FF; color: white;">START QUIZ</button>
+                </form>
+            </div>
+        </div>
     </div>
     <div class="col-sm-8">
         <table id="table" class="table table-responsive table-hover">
@@ -72,6 +96,37 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+<script>
+    $("#analyze").submit( function( event ){
+        event.preventDefault();
+//        var email = $("#inputEmail").val();
+//        var pwd = $("#inputPassword").val();
+//        var type = $("#type").val();
+        //var posting = $.post( url, { s: term } );
+        var url = window.location.href;
+        console.log(url);
+        url= url.split("/");
+        var tm= url[url.length -1];
+        //posting
+        $.ajax({
+//            method: "GET",
+//            url: "/api/quiz/"+tm+"/analyze"
+        }).done(function(msg){
+            console.log(msg);
+            console.log("Redirecting");
+            window.location.href="/analyze/"+tm;
+        });
+        // $.post(url, {identifier: email, password: pwd}, function(data, status){
+        // 	console.log(status);
+        // 	console.log(data);
+        //    });
+        // // Put the results in a div
+        // posting.done(function( data ) {
+        // 	var content = $( data ).find( "#content" );
+        //     $( "#result" ).empty().append( content );
+        // });
+    });
+</script>
 
 <script>
     $("#createnewoption").submit(function(e){
@@ -130,6 +185,17 @@
     console.log("Finished");
 </script>
 
+<script>
+    var jumboHeight = $('.jumbotron').outerHeight();
+    function parallax(){
+        var scrolled = $(window).scrollTop();
+        $('.bg').css('height', (jumboHeight-scrolled) + 'px');
+    }
+
+    $(window).scroll(function(e){
+        parallax();
+    });
+</script>
 
 </body>
 </html>
