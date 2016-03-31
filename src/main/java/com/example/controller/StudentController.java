@@ -33,27 +33,78 @@ public class StudentController {
         return new ResponseEntity<Student>(studentRepository.findByName(name), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/api/student", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody void createStudent(HttpServletRequest request,
-                    HttpServletResponse response){
+    @RequestMapping(value="/api/student/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Student>getStudentPost(HttpServletRequest request,
+                                                 HttpServletResponse response){
+
+        String email =  request.getParameter("email");
+//        String rollno = request.getParameter("rollno");
+
+        return new ResponseEntity<Student>(studentRepository.findByName(email), HttpStatus.OK);
+    }
+//
+//    @RequestMapping(value="/api/student", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public @ResponseBody void createStudent(HttpServletRequest request,
+//                    HttpServletResponse response){
+//        String name =  request.getParameter("name");
+//        String password =  request.getParameter("password");
+//        String rollno = request.getParameter("rollno");
+//
+//        studentRepository.save(new Student(name, password, rollno));
+//        HttpSession session = request.getSession();
+//        session.setAttribute("name", name);
+//        session.setAttribute("type", "student");
+//
+//        response.setStatus(200);
+//        response.setHeader("message", "success");
+//        response.setContentType("application/json");
+//        try {
+//            PrintWriter out = response.getWriter();
+//            out.println("{ \"message\": \"created student\" }");
+//        } catch (IOException e){
+//            e.printStackTrace();
+//        }
+//    }
+
+
+    @RequestMapping(value="/api/oauth/student", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody void createOAtuhStudent(HttpServletRequest request,
+                                            HttpServletResponse response){
         String name =  request.getParameter("name");
-        String password =  request.getParameter("password");
-        String rollno = request.getParameter("rollno");
+        String email =  request.getParameter("email");
+//        String rollno = request.getParameter("rollno");
 
-        studentRepository.save(new Student(name, password, rollno));
-        HttpSession session = request.getSession();
-        session.setAttribute("name", name);
-        session.setAttribute("type", "student");
+        System.out.println("Here 1");
+        Student student = studentRepository.findByName(name);
+        if(student == null){
 
+            email = email.replaceAll(".","_dot_"); // or "\\.", it doesn't matter...
+            email = email.replaceAll("@","_at_"); // or "\\.", it doesn't matter...
+
+            studentRepository.save(new Student(name, email));
+            HttpSession session = request.getSession();
+            session.setAttribute("name", email);
+            session.setAttribute("type", "student");
+
+            System.out.println("Here 2");
+
+
+
+        }
+        else{
+
+        }
         response.setStatus(200);
         response.setHeader("message", "success");
         response.setContentType("application/json");
+
         try {
             PrintWriter out = response.getWriter();
             out.println("{ \"message\": \"created student\" }");
         } catch (IOException e){
             e.printStackTrace();
         }
+
     }
 
 
@@ -67,6 +118,15 @@ public class StudentController {
 
         Student student = studentRepository.findByName(user_name);
         Course course = courseRepository.findByName(course_name);
+
+        System.out.println("user name  " + user_name);
+
+        System.out.println("course name  " + course_name);
+
+        System.out.println("course details " + course);
+        System.out.println("student details " + student);
+
+
         System.out.println(user_name);
         student.addCourse(course);
         studentRepository.save(student);

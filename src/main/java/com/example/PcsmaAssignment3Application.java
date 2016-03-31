@@ -35,13 +35,14 @@ public class PcsmaAssignment3Application implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		studentRepository.deleteAll();
-		studentRepository.save(new Student("sahil", "sahil", "2013083"));
+		studentRepository.save(new Student("sahil", "sahil@master.com"));
+		studentRepository.save(new Student("atul13025", "atul@master.com"));
 		teacherRepository.save(new Teacher("varsha", "varsha"));
 
 		for(Student student: studentRepository.findAll()){
 			System.out.println(student);
 		}
 
-		System.out.println(studentRepository.findByName("sahil"));
+		System.out.println(studentRepository.findByName("atul13025@iiitd.ac.in"));
 	}
 }
