@@ -50,7 +50,7 @@ public class QuizController {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss a");
         String startingTime = sdf.format(date);
 
-        quizRepository.save(new Quiz(name, question, time, startingTime));
+        quizRepository.save(new Quiz(name, question, time, ""));
 
         response.setStatus(200);
         response.setHeader("message", "success");

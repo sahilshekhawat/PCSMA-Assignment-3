@@ -153,6 +153,28 @@
 </script>
 
 <script>
+    $("#time").submit(function(e){
+        e.preventDefault();
+//        var option = $("#quizoption").val();
+//        var bool = $("#quizbool").val();
+        var url = window.location.href;
+        console.log(url);
+        url= url.split("/");
+        var tm= url[url.length -1];
+        $.ajax({
+            method: "POST",
+            url: "/api/quiz/"+tm+"/startquiz",
+            data: {
+            }
+        }).done(function(msg){
+            console.log(msg);
+            window.location.reload(true);
+        });
+        console.log("Finished");
+    })
+</script>
+
+<script>
     var name,id;
     var url = window.location.href;
     console.log(url);
