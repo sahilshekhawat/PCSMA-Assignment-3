@@ -12,20 +12,100 @@
 
 
     <style>
-        body {
-            padding-top: 40px;
-            padding-bottom: 40px;
-            background-color: #eee;
+        /*body {*/
+            /*padding-top: 40px;*/
+            /*padding-bottom: 40px;*/
+            /*background-color: #eee;*/
+        /*}*/
+        .bg {
+            background: url('http://www.bootply.com/assets/example/bg_blueplane.jpg') no-repeat center center;
+            position: fixed;
+            width: 100%;
+            background-size: cover;
+            height: 350px; /*same height as jumbotron */
+            top:0;
+            left:0;
+            z-index: -1;
+        }
+
+        .jumbotron {
+            height: 350px;
+            color: white;
+            text-shadow: #444 0 1px 1px;
+            background:transparent;
+        }
+    </style>
+    <style>
+        .card {
+            width: 15em;
+            height: 15em;
+            margin: 2em;
+            background: white;
+            display: inline-block;
+        }
+
+        .card--z-1 {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 2px 5px rgba(0, 0, 0, 0.26);
+            border: 1px solid #eee;
+        }
+
+        .card--z-5 {
+            box-shadow: 0 40px 77px rgba(0, 0, 0, 0.22), 0 27px 24px rgba(0, 0, 0, 0.2);
+            border: 1px solid #eee;
+        }
+
+        .card--animated {
+            -webkit-animation: paper-card 5s infinite alternate;
+            animation: paper-card 5s infinite alternate;
+            padding: 10px;
+        }
+
+        @-webkit-keyframes paper-card {
+            20% {
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 2px 5px rgba(0, 0, 0, 0.26);
+            }
+            40% {
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.19), 0 8px 17px rgba(0, 0, 0, 0.2);
+            }
+            60% {
+                box-shadow: 0 17px 50px rgba(0, 0, 0, 0.19), 0 12px 15px rgba(0, 0, 0, 0.24);
+            }
+            80% {
+                box-shadow: 0 25px 55px rgba(0, 0, 0, 0.21), 0 16px 28px rgba(0, 0, 0, 0.22);
+            }
+            100% {
+                box-shadow: 0 40px 77px rgba(0, 0, 0, 0.22), 0 27px 24px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        @keyframes paper-card {
+            20% {
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 2px 5px rgba(0, 0, 0, 0.26);
+            }
+            40% {
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.19), 0 8px 17px rgba(0, 0, 0, 0.2);
+            }
+            60% {
+                box-shadow: 0 17px 50px rgba(0, 0, 0, 0.19), 0 12px 15px rgba(0, 0, 0, 0.24);
+            }
+            80% {
+                box-shadow: 0 25px 55px rgba(0, 0, 0, 0.21), 0 16px 28px rgba(0, 0, 0, 0.22);
+            }
+            100% {
+                box-shadow: 0 40px 77px rgba(0, 0, 0, 0.22), 0 27px 24px rgba(0, 0, 0, 0.2);
+            }
         }
 
     </style>
 </head>
 <body>
-<div class="jumbotron" style="background-color: #2962FF; color: white; margin-bottom: 0px; padding-bottom: 2%;">
+<!--style="background-color: #2962FF; color: white; margin-bottom: 0px; padding-bottom: 2%;"-->
+<div class="bg"></div>
+<div class="jumbotron" >
     <div class="row">
         <div class="col-md-12 col-xs-12" style="text-align: center; margin-top: 3%;">
-            <h2>Welcome to Quizzer</h2>
-            <p>Add or view your Quizes here.</p>
+            <h2>Welcome to Quizzer!</h2>
+            <p class="lead">Add or view your Quizes here.</p>
         </div>
     </div>
 </div>
@@ -52,16 +132,17 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-8">
-        <table id="table" class="table table-responsive table-hover">
-            <thead>
-            <tr>
-                <th>QuizName</th>
-                <th>QuizQues</th>
-                <th>QuizTime</th>
-            </tr>
-            </thead>
-        </table>
+    <div class="col-sm-8" id="table">
+        <!--<table id="table" class="table table-responsive table-hover">-->
+            <!--<thead>-->
+            <!--<tr>-->
+                <!--<th>QuizName</th>-->
+                <!--<th>QuizQues</th>-->
+                <!--<th>QuizTime</th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+        <!--</table>-->
+
     </div>
 </div>
 
@@ -126,7 +207,7 @@
                         if(data.quizs[i].name && data.quizs[i].time){
                             var tm = "/quiz/"+data.quizs[i].name;
                             console.log(tm);
-                            txt += "<tr><td> <a href=\""+tm+"\">"+data.quizs[i].name+"</a></td><td>"+data.quizs[i].question+"</td><td>"+data.quizs[i].time+"</td></tr>";
+                            txt += "<div class=\"card card--animated\"> <h4>" + data.quizs[i].question + "</h4><br><i> Time: " + data.quizs[i].time + "</i><br><br><a href=\"" + tm + "\" class=\"btn btn-info\" role=\"button\">" + data.quizs[i].name + "</a> </div>";
                         }
                     }
                     if(txt != ""){
@@ -138,6 +219,17 @@
         console.log("Finished");
     </script>
 
+    <script>
+        var jumboHeight = $('.jumbotron').outerHeight();
+        function parallax(){
+            var scrolled = $(window).scrollTop();
+            $('.bg').css('height', (jumboHeight-scrolled) + 'px');
+        }
+
+        $(window).scroll(function(e){
+            parallax();
+        });
+    </script>
 
 </body>
 </html>
