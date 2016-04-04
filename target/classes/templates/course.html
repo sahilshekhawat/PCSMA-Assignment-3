@@ -13,9 +13,9 @@
 
     <style>
         /*body {*/
-            /*padding-top: 40px;*/
-            /*padding-bottom: 40px;*/
-            /*background-color: #eee;*/
+        /*padding-top: 40px;*/
+        /*padding-bottom: 40px;*/
+        /*background-color: #eee;*/
         /*}*/
         .bg {
             background: url('http://www.bootply.com/assets/example/bg_blueplane.jpg') no-repeat center center;
@@ -134,102 +134,102 @@
     </div>
     <div class="col-sm-8" id="table">
         <!--<table id="table" class="table table-responsive table-hover">-->
-            <!--<thead>-->
-            <!--<tr>-->
-                <!--<th>QuizName</th>-->
-                <!--<th>QuizQues</th>-->
-                <!--<th>QuizTime</th>-->
-            <!--</tr>-->
-            <!--</thead>-->
+        <!--<thead>-->
+        <!--<tr>-->
+        <!--<th>QuizName</th>-->
+        <!--<th>QuizQues</th>-->
+        <!--<th>QuizTime</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
         <!--</table>-->
 
     </div>
 </div>
 
-    <script   src="https://code.jquery.com/jquery-2.2.1.min.js"   integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="   crossorigin="anonymous"></script>
+<script   src="https://code.jquery.com/jquery-2.2.1.min.js"   integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="   crossorigin="anonymous"></script>
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-    <script>
-        $("#createnewquiz").submit(function(e){
-            e.preventDefault();
-            var name = $("#quizname").val();
-            var time = $("#quiztime").val();
-            var ques = $("#quizques").val();
-            var url = window.location.href;
-            console.log(url);
-            url= url.split("/");
-            var tm= url[url.length -1];
-            $.ajax({
-                method: "POST",
-                url: "/api/quiz",
-                data: {
-                    name: name,
-                    question: ques,
-                    time: time
-                }
-            }).done(function(msg){
-                console.log(msg);
-                $.ajax({
-                    method: "POST",
-                    url: "/api/course/"+tm+"/addquiz",
-                    data: {
-                        name: name
-                    }
-                }).done(function(msg){
-                    console.log(msg);
-                    console.log("Finished adding quiz");
-                    window.location.reload(true);
-                });
-            });
-            console.log("Finished");
-        })
-    </script>
-
-    <script>
-        var name,id;
+<script>
+    $("#createnewquiz").submit(function(e){
+        e.preventDefault();
+        var name = $("#quizname").val();
+        var time = $("#quiztime").val();
+        var ques = $("#quizques").val();
         var url = window.location.href;
         console.log(url);
         url= url.split("/");
-        url= url[url.length -1];
-        console.log(url);
+        var tm= url[url.length -1];
         $.ajax({
-            method: "GET",
-            url: "/api/course/" + url
-        }).done(function(data){
-            console.log(data);
-            if(data){
-                var len = data.quizs.length;
-                var txt = "";
-                if(len > 0){
-                    for(var i=0;i<len;i++){
-                        if(data.quizs[i].name && data.quizs[i].time){
-                            var tm = "/quiz/"+data.quizs[i].name;
-                            console.log(tm);
-                            txt += "<div class=\"card card--animated\"> <h4>" + data.quizs[i].question + "</h4><br><i> Time: " + data.quizs[i].time + "</i><br><br><a href=\"" + tm + "\" class=\"btn btn-info\" role=\"button\">" + data.quizs[i].name + "</a> </div>";
-                        }
-                    }
-                    if(txt != ""){
-                        $("#table").append(txt);
-                    }
-                }
+            method: "POST",
+            url: "/api/quiz",
+            data: {
+                name: name,
+                question: ques,
+                time: time
             }
+        }).done(function(msg){
+            console.log(msg);
+            $.ajax({
+                method: "POST",
+                url: "/api/course/"+tm+"/addquiz",
+                data: {
+                    name: name
+                }
+            }).done(function(msg){
+                console.log(msg);
+                console.log("Finished adding quiz");
+                window.location.reload(true);
+            });
         });
         console.log("Finished");
-    </script>
+    })
+</script>
 
-    <script>
-        var jumboHeight = $('.jumbotron').outerHeight();
-        function parallax(){
-            var scrolled = $(window).scrollTop();
-            $('.bg').css('height', (jumboHeight-scrolled) + 'px');
+<script>
+    var name,id;
+    var url = window.location.href;
+    console.log(url);
+    url= url.split("/");
+    url= url[url.length -1];
+    console.log(url);
+    $.ajax({
+        method: "GET",
+        url: "/api/course/" + url
+    }).done(function(data){
+        console.log(data);
+        if(data){
+            var len = data.quizs.length;
+            var txt = "";
+            if(len > 0){
+                for(var i=0;i<len;i++){
+                    if(data.quizs[i].name && data.quizs[i].time){
+                        var tm = "/quiz/"+data.quizs[i].name;
+                        console.log(tm);
+                        txt += "<div class=\"card card--animated\"> <h4>" + data.quizs[i].question + "</h4><br><i> Time: " + data.quizs[i].time + "</i><br><br><a href=\"" + tm + "\" class=\"btn btn-info\" role=\"button\">" + data.quizs[i].name + "</a> </div>";
+                    }
+                }
+                if(txt != ""){
+                    $("#table").append(txt);
+                }
+            }
         }
+    });
+    console.log("Finished");
+</script>
 
-        $(window).scroll(function(e){
-            parallax();
-        });
-    </script>
+<script>
+    var jumboHeight = $('.jumbotron').outerHeight();
+    function parallax(){
+        var scrolled = $(window).scrollTop();
+        $('.bg').css('height', (jumboHeight-scrolled) + 'px');
+    }
+
+    $(window).scroll(function(e){
+        parallax();
+    });
+</script>
 
 </body>
 </html>

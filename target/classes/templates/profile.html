@@ -13,9 +13,9 @@
 
     <style>
         /*body {*/
-            /*padding-top: 40px;*/
-            /*padding-bottom: 40px;*/
-            /*background-color: #eee;*/
+        /*padding-top: 40px;*/
+        /*padding-bottom: 40px;*/
+        /*background-color: #eee;*/
         /*}*/
         .bg {
             background: url('http://uploadrb.ru/upload/admins/picture/1237/09aa59e252654551ca752d140cc327d3b26759df.jpg') no-repeat center center;
@@ -120,96 +120,96 @@
     </div>
     <div class="col-sm-8" id="table">
         <!--<table id="table" class="table table-responsive table-hover">-->
-            <!--<thead>-->
-                <!--<tr>-->
-                    <!--<th>CourseName</th>-->
-                    <!--<th>CourseCode</th>-->
-                <!--</tr>-->
-            <!--</thead>-->
+        <!--<thead>-->
+        <!--<tr>-->
+        <!--<th>CourseName</th>-->
+        <!--<th>CourseCode</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
         <!--</table>-->
     </div>
 </div>
 
-    <script   src="https://code.jquery.com/jquery-2.2.1.min.js"   integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="   crossorigin="anonymous"></script>
+<script   src="https://code.jquery.com/jquery-2.2.1.min.js"   integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="   crossorigin="anonymous"></script>
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-    <script>
-        $("#createnewcourse").submit(function(e){
-            e.preventDefault();
-            var name = $("#coursename").val();
-            var id = $("#courseid").val();
+<script>
+    $("#createnewcourse").submit(function(e){
+        e.preventDefault();
+        var name = $("#coursename").val();
+        var id = $("#courseid").val();
+        $.ajax({
+            method: "POST",
+            url: "/api/course",
+            data: {
+                name: name,
+                code: id
+            }
+        }).done(function(msg){
+            console.log(msg);
+            console.log("Finished");
             $.ajax({
                 method: "POST",
-                url: "/api/course",
+                url: "/api/teacher/addcourse",
                 data: {
                     name: name,
-                    code: id
                 }
             }).done(function(msg){
                 console.log(msg);
-                console.log("Finished");
-                $.ajax({
-                    method: "POST",
-                    url: "/api/teacher/addcourse",
-                    data: {
-                        name: name,
-                    }
-                }).done(function(msg){
-                    console.log(msg);
-                    console.log("Finished adding teacher");
-                    window.location.reload(true);
-                });
+                console.log("Finished adding teacher");
+                window.location.reload(true);
             });
-        })
-    </script>
+        });
+    })
+</script>
 
-    <script>
-        var name,id;
-        var url = window.location.href;
-        console.log(url);
-        url= url.split("/");
-        url= url[url.length -1];
-        console.log(url);
-        $.ajax({
-            method: "GET",
-            url: "/api/teacher/" + url
-        }).done(function(data){
-            console.log(data);
-            if(data){
-                var len = data.courses.length;
-                var txt = "";
-                if(len > 0){
-                    for(var i=0;i<len;i++){
-                        if(data.courses[i].name && data.courses[i].code){
-                            var tm = "/course/"+data.courses[i].name;
-                            console.log(tm);
+<script>
+    var name,id;
+    var url = window.location.href;
+    console.log(url);
+    url= url.split("/");
+    url= url[url.length -1];
+    console.log(url);
+    $.ajax({
+        method: "GET",
+        url: "/api/teacher/" + url
+    }).done(function(data){
+        console.log(data);
+        if(data){
+            var len = data.courses.length;
+            var txt = "";
+            if(len > 0){
+                for(var i=0;i<len;i++){
+                    if(data.courses[i].name && data.courses[i].code){
+                        var tm = "/course/"+data.courses[i].name;
+                        console.log(tm);
 //                            txt += "<tr><td> <a href=\""+tm+"\">"+data.courses[i].name+"</a></td><td>"+data.courses[i].code+"</td></tr>";
-                            txt += "<div class=\"card card--animated\"> <h2>" + data.courses[i].code + "</h2><br>" +  "<br><br><a href=\"" + tm + "\" class=\"btn btn-info\" role=\"button\">" + data.courses[i].name + "</a> </div>";
-                        }
+                        txt += "<div class=\"card card--animated\"> <h2>Code: " + data.courses[i].code + "</h2><br>" +  "<br><br><a href=\"" + tm + "\" class=\"btn btn-info\" role=\"button\">" + data.courses[i].name + "</a> </div>";
+                    }
 
-                    }
-                    if(txt != ""){
-                        $("#table").append(txt);
-                    }
+                }
+                if(txt != ""){
+                    $("#table").append(txt);
                 }
             }
-        });
-        console.log("Finished");
-    </script>
-
-    <script>
-        var jumboHeight = $('.jumbotron').outerHeight();
-        function parallax(){
-            var scrolled = $(window).scrollTop();
-            $('.bg').css('height', (jumboHeight-scrolled) + 'px');
         }
+    });
+    console.log("Finished");
+</script>
 
-        $(window).scroll(function(e){
-            parallax();
-        });
-    </script>
+<script>
+    var jumboHeight = $('.jumbotron').outerHeight();
+    function parallax(){
+        var scrolled = $(window).scrollTop();
+        $('.bg').css('height', (jumboHeight-scrolled) + 'px');
+    }
+
+    $(window).scroll(function(e){
+        parallax();
+    });
+</script>
 
 </body>
 </html>
