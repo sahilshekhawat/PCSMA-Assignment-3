@@ -14,11 +14,24 @@ public class Student {
     String name;
     String password;
     String rollno;
+    String email;
+
+
+
     ArrayList<Course> courses = new ArrayList<Course>();
 
     public ArrayList<Course> getCourses() {
         return courses;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 
     public void addCourse(Course course){
         this.courses.add(course);
@@ -62,15 +75,18 @@ public class Student {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
                 ", rollno='" + rollno + '\'' +
                 ", courses=" + courses +
                 '}';
     }
 
-    public Student(String name, String password, String rollno) {
+
+
+    public Student(String name, String email){
         this.name = name;
-        this.password = password;
-        this.rollno = rollno;
+        this.email = email;
+        System.out.println("Here 0");
     }
 
 }

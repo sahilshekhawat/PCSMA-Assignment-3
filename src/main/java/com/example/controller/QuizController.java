@@ -47,6 +47,8 @@ public class QuizController {
         String question = request.getParameter("question");
         String time = request.getParameter("time");
         Date date = new Date();
+        date.setDate(date.getDate() + 100 );
+
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss a");
         String startingTime = sdf.format(date);
 
@@ -116,6 +118,32 @@ public class QuizController {
         try {
             PrintWriter out = response.getWriter();
             out.println("{ \"message\": \"added option\" }");
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping(value="/api/quiz/{name}/time",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody void addTime(HttpServletRequest request,
+                                        HttpServletResponse response,
+                                        @PathVariable("name") String quiz_name){
+
+
+        String time = request.getParameter("time");
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss a");
+        String startingTime = sdf.format(date);
+
+        Quiz quiz = quizRepository.findByName(quiz_name);
+        quiz.setTime(time);
+
+        response.setStatus(200);
+        response.setHeader("message", "success");
+        response.setContentType("application/json");
+
+        try {
+            PrintWriter out = response.getWriter();
+            out.println("{ \"message\": \"time added; quiz started\" }");
         } catch (IOException e){
             e.printStackTrace();
         }

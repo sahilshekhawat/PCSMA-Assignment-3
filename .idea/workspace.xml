@@ -2,14 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ddbdda4a-0ef5-4a1f-ad80-5bdad7b10cad" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/example/PcsmaAssignment3Application.class" afterPath="$PROJECT_DIR$/target/classes/com/example/PcsmaAssignment3Application.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/example/model/Quiz.class" afterPath="$PROJECT_DIR$/target/classes/com/example/model/Quiz.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/example/controller/QuizController.class" afterPath="$PROJECT_DIR$/target/classes/com/example/controller/QuizController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/example/model/Student.class" afterPath="$PROJECT_DIR$/target/classes/com/example/model/Student.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/example/controller/StudentController.class" afterPath="$PROJECT_DIR$/target/classes/com/example/controller/StudentController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/PcsmaAssignment3Application.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/PcsmaAssignment3Application.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/model/Quiz.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/Quiz.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/controller/QuizController.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/controller/QuizController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/course.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/course.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/templates/course.html" afterPath="$PROJECT_DIR$/target/classes/templates/course.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/templates/login.html" afterPath="$PROJECT_DIR$/target/classes/templates/login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/profile.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/profile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/templates/profile.html" afterPath="$PROJECT_DIR$/target/classes/templates/profile.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/model/Student.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/model/Student.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/controller/StudentController.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/controller/StudentController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/quiz.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/quiz.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/templates/quiz.html" afterPath="$PROJECT_DIR$/target/classes/templates/quiz.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -36,12 +41,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="QuizController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="QuizController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/controller/QuizController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="80" column="32" selection-start-line="80" selection-start-column="32" selection-end-line="80" selection-end-column="32" />
-              <folding />
+            <state vertical-scroll-proportion="-5.036217">
+              <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -50,7 +57,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/model/Quiz.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="76" column="40" selection-start-line="76" selection-start-column="40" selection-end-line="76" selection-end-column="40" />
+              <caret line="77" column="40" selection-start-line="77" selection-start-column="40" selection-end-line="77" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -86,8 +93,8 @@
       <file leaf-file-name="quiz.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/quiz.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.0">
-              <caret line="88" column="20" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
+            <state vertical-scroll-proportion="-16.625">
+              <caret line="97" column="20" selection-start-line="97" selection-start-column="20" selection-end-line="97" selection-end-column="20" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -95,10 +102,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="analyze.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="analyze.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/analyze.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.205074">
+            <state vertical-scroll-proportion="-23.75">
               <caret line="38" column="28" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
               <folding />
             </state>
@@ -693,12 +700,12 @@
       <workItem from="1459416353217" duration="210000" />
       <workItem from="1459417009640" duration="299000" />
       <workItem from="1459417514238" duration="1536000" />
-      <workItem from="1459741537497" duration="1520000" />
+      <workItem from="1459741537497" duration="1646000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75363000" />
+    <option name="totallyTimeSpent" value="75489000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
@@ -807,7 +814,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="94" column="15" selection-start-line="94" selection-start-column="15" selection-end-line="94" selection-end-column="15" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1105,14 +1114,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/controller/QuizController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="80" column="32" selection-start-line="80" selection-start-column="32" selection-end-line="80" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/model/Teacher.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7835498">
@@ -1151,7 +1152,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/model/Quiz.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="76" column="40" selection-start-line="76" selection-start-column="40" selection-end-line="76" selection-end-column="40" />
+          <caret line="77" column="40" selection-start-line="77" selection-start-column="40" selection-end-line="77" selection-end-column="40" />
           <folding />
         </state>
       </provider>
@@ -1169,8 +1170,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/quiz.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.0">
-          <caret line="88" column="20" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
+        <state vertical-scroll-proportion="-16.625">
+          <caret line="97" column="20" selection-start-line="97" selection-start-column="20" selection-end-line="97" selection-end-column="20" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
@@ -1191,9 +1192,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/analyze.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.205074">
+        <state vertical-scroll-proportion="-23.75">
           <caret line="38" column="28" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/controller/QuizController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.036217">
+          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
